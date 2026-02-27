@@ -1,7 +1,12 @@
-- auto install (tested on clean Ubuntu 24.04):
+### auto install (tested on clean Ubuntu 24.04):
+
 ```
 git clone https://github.com/daanqq/dotfiles ~/.dotfiles && ~/.dotfiles/install.sh
 ```
+
+---
+
+### manual install:
 
 - apt install:
 ```
