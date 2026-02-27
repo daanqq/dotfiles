@@ -18,6 +18,8 @@ if [ ! -d "$HOME/.fzf" ]; then
   ~/.fzf/install --all
 fi
 
+rm -rf .zshrc .oh-my-zsh
+
 # apply stow
 cd .dotfiles
 stow git zsh btop
