@@ -1,0 +1,8 @@
+[user]
+	name = Danila Andreev
+	email = qq@daanqq.ru
+[alias]
+	co = checkout
+	st = status
+	ci = commit
+	br = branch

@@ -1,0 +1,99 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "keybindings": 
+    [
+        {
+            "id": "Terminal.CopyToClipboard",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "Terminal.FindText",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        }
+    ],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "colorScheme": "Poimandres",
+            "font": 
+            {
+                "face": "IosevkaTerm Nerd Font"
+            }
+        },
+        "list": 
+        [
+            {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": true,
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{125b501c-6a60-586d-8bc8-ebccc779721e}",
+                "hidden": false,
+                "icon": "D:\\Machines\\Ubuntu\\shortcut.ico",
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
+            }
+        ]
+    },
+    "schemes": 
+    [
+        {
+            "background": "#1B1E28",
+            "black": "#1B1E28",
+            "blue": "#89DDFF",
+            "brightBlack": "#A6ACCD",
+            "brightBlue": "#ADD7FF",
+            "brightCyan": "#89DDFF",
+            "brightGreen": "#5DE4C7",
+            "brightPurple": "#FAE4FC",
+            "brightRed": "#D0679D",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#FFFAC2",
+            "cursorColor": "#A6ACCD",
+            "cyan": "#ADD7FF",
+            "foreground": "#A6ACCD",
+            "green": "#5DE4C7",
+            "name": "Poimandres",
+            "purple": "#FCC5E9",
+            "red": "#D0679D",
+            "selectionBackground": "#303340",
+            "white": "#FFFFFF",
+            "yellow": "#FFFAC2"
+        }
+    ],
+    "themes": []
+}
