@@ -18,6 +18,10 @@ if [ ! -d "$HOME/.fzf" ]; then
   ~/.fzf/install --all
 fi
 
+# install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# remove init .zshrc
 rm -rf .zshrc
 
 # apply stow
