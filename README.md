@@ -1,3 +1,8 @@
+- auto install:
+```
+git clone https://github.com/daanqq/dotfiles ~/.dotfiles && chmod +x ~/.dotfiles/install.sh && ~/.dotfiles/install.sh
+```
+
 - apt install:
 ```
 sudo apt zsh install unzip eza bat btop stow -y
