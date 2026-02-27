@@ -19,6 +19,7 @@ if [ ! -d "$HOME/.fzf" ]; then
 fi
 
 # apply stow
+cd .dotfiles
 stow git zsh btop
 
 echo "Dotfiles installation complete."
