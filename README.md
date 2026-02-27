@@ -1,6 +1,6 @@
 - auto install (tested on clean Ubuntu 24.04):
 ```
-git clone https://github.com/daanqq/dotfiles ~/.dotfiles && chmod +x ~/.dotfiles/install.sh && ~/.dotfiles/install.sh
+git clone https://github.com/daanqq/dotfiles ~/.dotfiles && ~/.dotfiles/install.sh
 ```
 
 - apt install:
