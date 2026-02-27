@@ -18,7 +18,7 @@ if [ ! -d "$HOME/.fzf" ]; then
   ~/.fzf/install --all
 fi
 
-rm -rf .zshrc .oh-my-zsh
+rm -rf .zshrc
 
 # apply stow
 cd .dotfiles
