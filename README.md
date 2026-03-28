@@ -1,32 +1,7 @@
-### auto install (tested on clean Ubuntu 24.04):
+### install
 
-```
-git clone https://github.com/daanqq/dotfiles ~/.dotfiles && ~/.dotfiles/install.sh
-```
-
----
-
-### manual install:
-
-- apt install:
-```
-sudo apt zsh install unzip eza bat btop stow -y
+```bash
+curl -fsSL https://raw.githubusercontent.com/daanqq/dotfiles/main/install.sh | bash
 ```
 
-- sh install:
-```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-curl -sS https://starship.rs/install.sh | sh
-curl -fsSL https://fnm.vercel.app/install | bash
-```
-
-- fzf:
-```
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-```
-
-- stow:
-```
-stow git zsh btop
-```
+The script installs `yadm`, clones the repo, and keeps only the managed dotfile paths in your home directory.
