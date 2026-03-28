@@ -20,10 +20,22 @@ resolve_source() {
   printf '%s\n' "$REPO_URL"
 }
 
+is_git_worktree_clean() {
+  local path="$1"
+
+  git -C "$path" status --porcelain --untracked-files=all | grep -q '^' && return 1
+  return 0
+}
+
 prepare_source_repo() {
   local source="$1"
 
   if [ ! -d "$source" ]; then
+    printf '%s\n' "$source"
+    return 0
+  fi
+
+  if git -C "$source" rev-parse --is-inside-work-tree >/dev/null 2>&1 && is_git_worktree_clean "$source"; then
     printf '%s\n' "$source"
     return 0
   fi
@@ -57,7 +69,14 @@ ensure_yadm_repo() {
   source="$(prepare_source_repo "$(resolve_source)")"
 
   if yadm rev-parse --git-dir >/dev/null 2>&1; then
-    log "yadm repository already exists"
+    log "yadm repository already exists; syncing from source"
+    if yadm remote get-url origin >/dev/null 2>&1; then
+      yadm remote set-url origin "$source"
+    else
+      yadm remote add origin "$source"
+    fi
+    yadm fetch origin main
+    yadm reset --hard origin/main
     return 0
   fi
 
