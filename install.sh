@@ -35,6 +35,7 @@ prepare_source_repo() {
   tar -C "$source" --exclude='.git' -cf - . | tar -C "$SOURCE_SNAPSHOT_DIR" -xf -
   git -C "$SOURCE_SNAPSHOT_DIR" add -A
   git -C "$SOURCE_SNAPSHOT_DIR" commit -qm "snapshot"
+  git -C "$SOURCE_SNAPSHOT_DIR" branch -M yadm
   printf '%s\n' "$SOURCE_SNAPSHOT_DIR"
 }
 
@@ -64,7 +65,7 @@ ensure_yadm_repo() {
   backup_existing_configs
 
   log "Cloning dotfiles with yadm..."
-  yadm clone --no-bootstrap "$source"
+  yadm clone -b yadm --no-bootstrap "$source"
 }
 
 backup_existing_dotfiles() {
