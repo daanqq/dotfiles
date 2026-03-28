@@ -2,6 +2,7 @@
 set -euo pipefail
 
 REPO_URL="${REPO_URL:-https://github.com/daanqq/dotfiles.git}"
+SOURCE_SNAPSHOT_DIR=""
 
 log() {
   printf '%s\n' "$*"
@@ -19,6 +20,32 @@ resolve_source() {
   printf '%s\n' "$REPO_URL"
 }
 
+prepare_source_repo() {
+  local source="$1"
+
+  if [ ! -d "$source" ]; then
+    printf '%s\n' "$source"
+    return 0
+  fi
+
+  SOURCE_SNAPSHOT_DIR="$(mktemp -d)"
+  git -C "$SOURCE_SNAPSHOT_DIR" init -q
+  git -C "$SOURCE_SNAPSHOT_DIR" config user.name snapshot
+  git -C "$SOURCE_SNAPSHOT_DIR" config user.email snapshot@example.com
+  tar -C "$source" --exclude='.git' -cf - . | tar -C "$SOURCE_SNAPSHOT_DIR" -xf -
+  git -C "$SOURCE_SNAPSHOT_DIR" add -A
+  git -C "$SOURCE_SNAPSHOT_DIR" commit -qm "snapshot"
+  printf '%s\n' "$SOURCE_SNAPSHOT_DIR"
+}
+
+cleanup() {
+  if [ -n "$SOURCE_SNAPSHOT_DIR" ] && [ -d "$SOURCE_SNAPSHOT_DIR" ]; then
+    rm -rf "$SOURCE_SNAPSHOT_DIR"
+  fi
+}
+
+trap cleanup EXIT
+
 ensure_apt_packages() {
   sudo apt update
   sudo apt install -y git curl yadm zsh unzip eza bat btop ripgrep fd-find
@@ -26,15 +53,38 @@ ensure_apt_packages() {
 
 ensure_yadm_repo() {
   local source
-  source="$(resolve_source)"
+  source="$(prepare_source_repo "$(resolve_source)")"
 
   if yadm rev-parse --git-dir >/dev/null 2>&1; then
     log "yadm repository already exists"
     return 0
   fi
 
+  backup_existing_dotfiles
+  backup_existing_configs
+
   log "Cloning dotfiles with yadm..."
   yadm clone --no-bootstrap "$source"
+}
+
+backup_existing_dotfiles() {
+  local target
+  for target in "$HOME/.zshrc" "$HOME/.gitconfig"; do
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      mv "$target" "$target.bak.$(date +%Y%m%d-%H%M%S)"
+      log "Backed up $target"
+    fi
+  done
+}
+
+backup_existing_configs() {
+  local target
+  for target in "$HOME/.config/btop" "$HOME/.config/windows"; do
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      mv "$target" "$target.bak.$(date +%Y%m%d-%H%M%S)"
+      log "Backed up $target"
+    fi
+  done
 }
 
 configure_sparse_checkout() {
