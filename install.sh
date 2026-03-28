@@ -7,19 +7,34 @@ log() {
   printf '%s\n' "$*"
 }
 
+resolve_source() {
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+  if git -C "$script_dir" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    printf '%s\n' "$script_dir"
+    return 0
+  fi
+
+  printf '%s\n' "$REPO_URL"
+}
+
 ensure_apt_packages() {
   sudo apt update
   sudo apt install -y git curl yadm zsh unzip eza bat btop ripgrep fd-find
 }
 
 ensure_yadm_repo() {
+  local source
+  source="$(resolve_source)"
+
   if yadm rev-parse --git-dir >/dev/null 2>&1; then
     log "yadm repository already exists"
     return 0
   fi
 
   log "Cloning dotfiles with yadm..."
-  yadm clone --no-bootstrap "$REPO_URL"
+  yadm clone --no-bootstrap "$source"
 }
 
 configure_sparse_checkout() {
